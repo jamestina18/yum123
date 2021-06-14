@@ -35,7 +35,7 @@ class User(models.Model):
      first_name = models.CharField(max_length=255)
      last_name = models.CharField(max_length=255)
      email_address = models.EmailField(unique=True)
-     profile_pic = models.FileField(null=True, blank=Tru)
+     profile_pic = models.FileField(null=True, blank=True)
      city = models.CharField(max_length=45)
      zip_code = models.CharField(max_length=5)
      password = models.CharField(max_length=45)
