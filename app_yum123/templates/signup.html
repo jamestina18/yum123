@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'style.css' %}">
+     <title>YUM! Sign-up</title>
+</head>
+<body>
+     <div class="container-fluid bg-dark" id="container">
+          <div class="bg-danger text-right" id="logged_head">
+          <h1 class="text-center text-white">YUM!</h1>
+          <h3 class = "text-center text-white">Sign-up here</h3>
+          <a href="/" class="btn btn-outline-success text">HOME</a>
+          </div>    
+          <form action="new-user" class="border border-success rounded" method="post">
+               {% csrf_token %}
+               <div class="mb-3">
+                    <label for="first_name" class="form-label text-white">First name:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="first_name" placeholder="Your first name here">
+               </div>
+               <div class="mb-3">
+                    <label for="last_name" class="form-label text-white">Last name:</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="last_name" placeholder="Your last name here">
+               </div>
+               <div class="mb-3">
+                    <label for="email_address" class="form-label text-white">Email address:</label>
+                    <input type="text" class="form-control" name="email_address" id="exampleFormControlInput1" placeholder="name@example.com">
+               </div>
+               <div class="mb-3">
+                    <label for="city" class="form-labe text-white">City:</label>
+                    <input type="text" class="form-control" name="city" id="exampleFormControlInput1">
+                    <label for="zip_code" class="form-label text-white">Zip Code:</label>
+                    <input type="text" class="form-control" name="zip_code" id="exampleFormControlInput1" placeholder="*****">
+               </div>
+               <div class="mb-3">
+                    <label for="password" class="form-label text-white">Password:</label>
+                    <input type="text" class="form-control" name="password" id="exampleFormControlInput1">
+                    <label for="password" class="form-label text-white">Confirm Password:</label>
+                    <input type="text" class="form-control" name="confirm_password" id="exampleFormControlInput1">
+               </div>
+               <div>
+                    <label for="password" class="form-label text-white">Password:</label>
+                    <input type="file" class="form-control" name="profile_pic" id="exampleFormControlInput1">
+               </div>
+               <div class="text-left">
+                    <button type="submit" class="btn btn-outline-success">Submit</button>
+               </div>
+          </form>
+          
+     {% if messages %} {% for msg in messages %}
+     <h3 class="text-danger">{{ msg }}</h3>
+     {% endfor %} {% endif %}
+</div>
+</body>
+</html>

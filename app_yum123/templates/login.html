@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>YUM Login</title>
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+<body>
+     <div class="container-fluid bg-dark" id="container">
+
+          <div class="bg-danger yum_logo align-items-center text-right" id="logged_head" >
+               <h1 class="text-center">YUM!</h1>
+               <a href="/" class="btn btn-outline-success text">HOME</a>
+          </div>
+          <div class="bg-danger" id="log_in_card" style="width: 25rem; height: 30rem;">
+               <h1 class="text-center text-white">Welcome!</h1>
+               <h2 class="text-center text-white">Log in here!</h2>
+               <form action="/login-member" method="post">
+               {% csrf_token %}
+                    <div class="form-group inline">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email_address" name="email_address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success align-middle">Submit</button>
+               </form>
+
+          </div>
+          {% if messages %} {% for msg in messages %}
+          <h4 class="text-danger">{{ msg }}</h4>
+          {% endfor %} {% endif %}
+
+
+
+     </div>
+</body>
+</html>

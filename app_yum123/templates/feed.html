@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>YUM!</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+     <div class="container-fluid bg-dark" id="container">
+          <h1 class= "text-white text-center">Welcome</h1>
+          <h2 class= "text-white text-center" id="user_name">{{ user.first_name }} {{ user.last_name }}</h2>
+          <div class="text-center">
+          <img src="{{ profile_image.url }}" alt="profile_image">
+          </div>
+          <nav>
+               <div>
+                    <nav class="navbar navbar-light bg-secondary justify-content-center">
+                         <form class="form-inline">
+                              {% csrf_token %}
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Find Restaurant</button>
+                         </form>
+                         <form class="form-inline" action="/logged" method="post">
+                              {% csrf_token %}
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">City</button>
+                         </form>
+                         <form action="/logout" id="logout_btn" >
+                              <button class="btn btn-outline-success my-2 my-sm-0" >LOG OUT</button>
+                         </form>
+                    </nav>
+               </div>
+          </nav>
+          <div><h1 class= "text-center text-white">List of Restaurants</h1></div>
+               <div class="row justify-content-center">
+                    {% for i in restaurant_data%}
+                    <div class="col-md-7 offset-md-1 bg-danger d-flex">
+                              <!-- this  -->
+                         <div class="card" style="width: 18rem;">
+                              <img class="card-img-top" src="{{ i.image_url}}" alt="Card image cap">
+                              <div class="card-body ">
+                                   <h4 class="card-title card-body"> {{ i.name}}</h4>
+                                   <p class="card-text"><p class="text-success">Location:</p>{{ i.location.address1}} {{ i.location.city}}, {{ i.location.zip}} {{ i.location.state}}</p>
+                                   <p class="card-text"><p class="text-success">Phone:</p>{{ i.phone}}</p>
+                                   <p class="card-text text-danger">Ratings: {{ i.rating}} </p>
+                                   <a href="" class="btn btn-outline-success">Comment</a>
+                                   <a href="" class="btn btn-outline-success">Rate</a>
+                              </div>
+                              <!-- until this -->
+                         </div>
+                         <div class="interact">
+                              <form action="/add-review/{{post.id}}" method=POST>
+                                   {% csrf_token %}
+                                   Reviews: <input type="text" name = 'comment'>
+                                   <input type="submit" value="submit">
+                              </form>
+                         </div>
+                    </div> 
+                    {% endfor%}
+          </div>
+</body>
+</html>

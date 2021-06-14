@@ -1,0 +1,10 @@
+
+pip install requests
+pip install bcrypt
+pip install Jinja2
+pip install pytz
+pip install setuptools
+pip install Flask
+pip install YelpAPI 
+
+
