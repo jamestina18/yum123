@@ -16,12 +16,12 @@ PARAMETERS = {'term': 'restaurant',
 'limit': '50',
 'radius': '10000',
 'offset': '50',
-'location': '98104'
+'location': ''
 }
 #Make request to yelp api
-response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
-#Convert to string JSON
-business_data =  response.json()
+# response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
+# #Convert to string JSON
+# business_data =  response.json()
 # for b in business_data['businesses']:
      
 def api(request):
@@ -34,15 +34,15 @@ def api(request):
           }
      return render(request, 'Home.html',context)
 
-def api_all(request):
-     restaurant_data = []  
-     for b in business_data['businesses']:
-          restaurant_data.append(b)
-     print (restaurant_data)
-     context = {
-          'restaurant_data': restaurant_data,
-          }
-     return api_all
+
+# def to_comment(request):
+#      Restau_api_obj.objects.create(name= request.POST['restaurant_data.name'],
+#      loc1= request.POST['restaurant_data.location.address1'],
+#      loc2= request.POST['restaurant_data.location.city'],
+#      loc2= request.POST['restaurant_data.location.zip_code'],
+#      loc2= request.POST['restaurant_data.location.state'],
+#      loc2= request.POST['restaurant_data.location.rating']
+#      )
 
 
 def api_obj(request):
@@ -67,15 +67,20 @@ def success(request):
      return render(request, 'feed.html')
 
 def logged(request):
-     restaurant_data = []  
-     for b in business_data['businesses']:
-          restaurant_data.append(b)
-     print (restaurant_data)
+     zip_code = request.POST['zip_code']
+     PARAMETERS['location'] = zip_code
+     response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
+     business_data =  response.json()
+     print(business_data)
+#      restaurant_data = []  
+#      for b in business_data['businesses']:
+#           restaurant_data.append(b)
+#      print (restaurant_data)
      context = {
-          'restaurant_data': restaurant_data,
+          'restaurant_data': business_data['businesses'],
           }
      return render(request, 'feed.html',context)
-#home
+# #home
 
 
 def index(request):

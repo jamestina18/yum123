@@ -26,7 +26,7 @@
                          </form>
                          <form class="form-inline" action="/logged" method="post">
                               {% csrf_token %}
-                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" name="zip_code" aria-label="Search">
                               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">City</button>
                          </form>
                          <form action="/logout" id="logout_btn" >
@@ -44,7 +44,7 @@
                               <img class="card-img-top" src="{{ i.image_url}}" alt="Card image cap">
                               <div class="card-body ">
                                    <h4 class="card-title card-body"> {{ i.name}}</h4>
-                                   <p class="card-text"><p class="text-success">Location:</p>{{ i.location.address1}} {{ i.location.city}}, {{ i.location.zip}} {{ i.location.state}}</p>
+                                   <p class="card-text"><p class="text-success">Location:</p>{{ i.location.address1}} {{ i.location.city}}, {{ i.location.zip_code}} {{ i.location.state}}</p>
                                    <p class="card-text"><p class="text-success">Phone:</p>{{ i.phone}}</p>
                                    <p class="card-text text-danger">Ratings: {{ i.rating}} </p>
                                    <a href="" class="btn btn-outline-success">Comment</a>
