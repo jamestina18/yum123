@@ -51,16 +51,15 @@ class Restau_api_obj(models.Model):
      location = models.CharField(max_length=255)
      image = models.ImageField()
      ratings = models.CharField(max_length=45)
+     created_at = models.DateTimeField(auto_now_add=True,null=True)
+     updated_at = models.DateTimeField(auto_now=True,null=True)
 
-     def __str__(self):
-          return f"{self.name} {self.location}{self.image} {self.ratings}"
 
-
-class Review(models.Model):
-     comment = models.CharField(max_length=255)
-     commenter = models.ForeignKey(User, related_name='user_review', on_delete=models.CASCADE)
-     yelp_api = models.ForeignKey(Restau_api_obj, related_name='yelp_review', on_delete=models.CASCADE)
-     created_at = models.DateTimeField(auto_now_add=True, null=True)
-     updated_at = models.DateTimeField(auto_now=True, null=True)
+# class Review(models.Model):
+#      comment = models.CharField(max_length=255)
+#      commenter = models.ForeignKey(User, related_name='user_review', on_delete=models.CASCADE)
+#      yelp_api = models.ForeignKey(Restau_api_obj, related_name='yelp_review', on_delete=models.CASCADE)
+#      created_at = models.DateTimeField(auto_now_add=True, null=True)
+#      updated_at = models.DateTimeField(auto_now=True, null=True)
 
 

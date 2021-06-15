@@ -42,17 +42,8 @@
                                    <p class="card-text"><p class="text-success">Location:</p>{{ i.location.address1}} {{ i.location.city}}, {{ i.location.zip_code}} {{ i.location.state}}</p>
                                    <p class="card-text"><p class="text-success">Phone:</p>{{ i.phone}}</p>
                                    <p class="card-text text-danger">Ratings: {{ i.rating}} </p>
-                                   <a href="" class="btn btn-outline-success">Comment</a>
-                                   <a href="" class="btn btn-outline-success">Rate</a>
                               </div>
                               <!-- until this -->
-                         </div>
-                         <div class="interact">
-                              <form action="/add-review/{{post.id}}" method=POST>
-                                   {% csrf_token %}
-                                   Reviews: <input type="text" name = 'comment'>
-                                   <input type="submit" value="submit">
-                              </form>
                          </div>
                     </div> 
                     {% endfor%}

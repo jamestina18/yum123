@@ -19,42 +19,21 @@ PARAMETERS = {'term': 'restaurant',
 'location': ''
 }
 #Make request to yelp api
-# response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
+response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
 # #Convert to string JSON
-# business_data =  response.json()
+business_data =  response.json()
 # for b in business_data['businesses']:
      
 def api(request):
-     restaurant_data = []  
-     for b in business_data['businesses']:
-          restaurant_data.append(b)
-     print (restaurant_data)
+     zip_code = request.POST['zip_code']
+     PARAMETERS['location'] = zip_code
+     response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
+     business_data =  response.json()
+     print(business_data)
      context = {
-          'restaurant_data': restaurant_data,
+          'restaurant_data': business_data['businesses'],
           }
      return render(request, 'Home.html',context)
-
-
-# def to_comment(request):
-#      Restau_api_obj.objects.create(name= request.POST['restaurant_data.name'],
-#      loc1= request.POST['restaurant_data.location.address1'],
-#      loc2= request.POST['restaurant_data.location.city'],
-#      loc2= request.POST['restaurant_data.location.zip_code'],
-#      loc2= request.POST['restaurant_data.location.state'],
-#      loc2= request.POST['restaurant_data.location.rating']
-#      )
-
-
-def api_obj(request):
-     if request.method == "POST":
-          all_restau = api_all()
-          for i in all_restau:
-               name = i["name"]
-               location = i["location.address1"]["location.city"][location.zip_code]
-               image = i["image_url"]
-               Restau_api_obj.objects.create(name = name, location=location, image=image, ratings=i["rating"])
-          return redirect("/")
-     return render (request, 'feed.html')
 # this is from the homepage that only user can comment
 def must_be_looged(request):
      if 'user' not in request.session:
@@ -66,21 +45,18 @@ def success(request):
           return('/')
      return render(request, 'feed.html')
 
+#rendering api data to the template using zipcode
 def logged(request):
      zip_code = request.POST['zip_code']
      PARAMETERS['location'] = zip_code
      response = requests.get(url = ENDPOINT, params = PARAMETERS, headers = HEADERS)
      business_data =  response.json()
      print(business_data)
-#      restaurant_data = []  
-#      for b in business_data['businesses']:
-#           restaurant_data.append(b)
-#      print (restaurant_data)
      context = {
           'restaurant_data': business_data['businesses'],
           }
      return render(request, 'feed.html',context)
-# #home
+
 
 
 def index(request):
@@ -88,6 +64,7 @@ def index(request):
 #this route is for the log in navbar     
 def login(request):
      return render(request,'login.html')
+
 # this route the user to html page upon succesfull log in 
 def feed_welcome(request):
      if 'user_id' not in request.session:
@@ -148,12 +125,6 @@ def login_member(request):
           request.session['user_id'] = user.id
           return redirect("/feed_welcome")
      return redirect('/login') 
-
-def add_review(request, id):
-     commenter = User.objects.get(id = request.session['id'])
-     message = Restau_api_obj.objects.get(id=id)
-     Review.objects.create(comment=request.POST['comment'],commenter=commenter, yelp_api=message)
-     return redirect('/success')
 
 def logout(request):
      del request.session['user_id']

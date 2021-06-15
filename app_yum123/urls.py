@@ -12,6 +12,5 @@ urlpatterns = [
     path('feed_welcome', views.feed_welcome),
     path('must_be_looged',views.must_be_looged),
     path('logged', views.logged),
-    path('add-review/<int:id>',views.add_review),
     path('logout', views.logout)
 ]
